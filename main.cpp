@@ -3,8 +3,10 @@
 #include "../include/PWM.h"
 #include "../include/converters.h"
 
-/*** MODE ***/
-#define TEST
+/*** SWITCHES
+LOG - log duty
+*/
+#define LOG
 
 /*** UART params ***/
 constexpr long BAUD = 9600;
@@ -29,7 +31,13 @@ void loop()
   int duty = get_Cuk_duty(Vo, Vs);
   PWM_write(SC_OUTPUT, duty);
 
-#ifdef TEST
-  uart_transmit(duty);
+#ifdef LOG
+  /************************** Set header and params to log **********************************/
+  const String header = "time,duty";
+  const long log_parametrs[] = {millis(), duty};
+  /********************************************************************************************/
+
+  const int NumOfParams = sizeof(log_parametrs) / sizeof(log_parametrs[0]);
+  log_uart(header, log_parametrs, NumOfParams);
 #endif
 }
