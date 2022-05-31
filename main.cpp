@@ -1,11 +1,23 @@
+/**
+ * @file main.cpp
+ * @author Damian Płaskowicki (damian.plaskowicki.stud@pw.edu.pl)
+ * @brief Ciuk Controler to set and fix voltage from Super Capacitor
+ * @version 0.1
+ * @date 2022-05-31
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #include <Arduino.h>
 #include "../include/uart.h"
 #include "../include/PWM.h"
 #include "../include/converters.h"
 
-/*** SWITCHES
-LOG - log duty
-*/
+/**
+ * @brief define or remove correct line to switch any mode {#define [param]}
+ * @param LOG define to enable logging
+ *
+ */
 #define LOG
 
 /*** UART params ***/
@@ -28,7 +40,7 @@ void setup()
 
 void loop()
 {
-  int duty = get_Cuk_duty(Vo, Vs);
+  int duty = GetCukDuty(Vo, Vs);
   PWM_write(SC_OUTPUT, duty);
 
 #ifdef LOG
