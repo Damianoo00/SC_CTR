@@ -35,13 +35,12 @@ constexpr int Vo = 5000; // mV
 void setup()
 {
   uart_begin(BAUD, TIMEOUT);
-  PWM_begin(SC_OUTPUT);
 }
 
 void loop()
 {
   int duty = GetCukDuty(Vo, Vs);
-  PWM_write(SC_OUTPUT, duty);
+  analogWrite(SC_OUTPUT, duty);
 
 #ifdef LOG
   /************************** Set header and params to log **********************************/
